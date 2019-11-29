@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29123.88
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailRuTests", "MailRuTests.csproj", "{CC19A4D0-745F-40BB-A4FA-89B791149866}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PageObjects", "..\PageObjects\PageObjects.csproj", "{D783B3FC-49A6-456F-9A8C-7FE2F551D00A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "..\Models\Models.csproj", "{DCA67FD2-8A0F-4977-9570-CCDE811BADF8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CC19A4D0-745F-40BB-A4FA-89B791149866}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC19A4D0-745F-40BB-A4FA-89B791149866}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC19A4D0-745F-40BB-A4FA-89B791149866}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC19A4D0-745F-40BB-A4FA-89B791149866}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D783B3FC-49A6-456F-9A8C-7FE2F551D00A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D783B3FC-49A6-456F-9A8C-7FE2F551D00A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D783B3FC-49A6-456F-9A8C-7FE2F551D00A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D783B3FC-49A6-456F-9A8C-7FE2F551D00A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCA67FD2-8A0F-4977-9570-CCDE811BADF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCA67FD2-8A0F-4977-9570-CCDE811BADF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCA67FD2-8A0F-4977-9570-CCDE811BADF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCA67FD2-8A0F-4977-9570-CCDE811BADF8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3128AC38-CD7B-4EC8-8ACF-023E04DF9A91}
+	EndGlobalSection
+EndGlobal
