@@ -1,14 +1,15 @@
 ﻿using Models;
+using NLog;
 using OpenQA.Selenium;
 
 namespace PageObjects
 {
     public class MailRuPage : BasePageObject
     {
-        private static string url = "https://mail.ru/";
+        private static readonly string url = "https://mail.ru/";
 
-        public MailRuPage(IWebDriver driver)
-            : base(driver)
+        public MailRuPage(IWebDriver driver, ILogger logger)
+            : base(driver, logger)
         {
         }
 
@@ -16,7 +17,7 @@ namespace PageObjects
         {
             get
             {
-                return new MailBox(_driver);
+                return new MailBox(_driver, _logger);
             }
         }
 
@@ -29,6 +30,6 @@ namespace PageObjects
         {
             _driver.Navigate().GoToUrl(url);
             return this;
-        }        
+        }
     }
 }

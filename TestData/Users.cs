@@ -13,7 +13,6 @@ namespace EmailTests.TestData
             User = JsonConvert.DeserializeObject<User>(GetJSONString());
         }
 
-        //[JsonProperty("User")]
         public static User User { get; set; }
 
         public static string GetJSONString()

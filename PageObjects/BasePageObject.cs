@@ -1,16 +1,20 @@
-﻿using OpenQA.Selenium;
+﻿using NLog;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
 
 namespace PageObjects
 {
-    public class BasePageObject
+    public abstract class BasePageObject
     {
         protected readonly IWebDriver _driver;
 
-        public BasePageObject(IWebDriver driver)
+        protected readonly ILogger _logger;
+
+        public BasePageObject(IWebDriver driver, ILogger logger)
         {
             _driver = driver;
+            _logger = logger;
         }
 
         protected virtual void WaitForPageLoad()

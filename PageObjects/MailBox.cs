@@ -1,4 +1,5 @@
 ﻿using Models;
+using NLog;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
@@ -7,8 +8,8 @@ namespace PageObjects
 {
     internal class MailBox : BasePageObject
     {
-        public MailBox(IWebDriver driver)
-            : base(driver)
+        public MailBox(IWebDriver driver, ILogger logger)
+            : base(driver, logger)
         {
         }
 
@@ -40,7 +41,7 @@ namespace PageObjects
         {
             Login.SendKeys(user.Login);
             Submit.Click();
-            var waitor = new WebDriverWait(_driver, TimeSpan.FromSeconds(5));
+            var waitor = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
 
             waitor.Until(driver => Password.Displayed);
             Password.SendKeys(user.Password);

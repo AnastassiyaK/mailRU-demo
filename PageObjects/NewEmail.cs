@@ -1,4 +1,5 @@
 ﻿using Models;
+using NLog;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
@@ -7,8 +8,8 @@ namespace PageObjects
 {
     public class NewEmail : BasePageObject
     {
-        public NewEmail(IWebDriver driver)
-            : base(driver)
+        public NewEmail(IWebDriver driver, ILogger logger)
+            : base(driver, logger)
         {
         }
 
@@ -40,6 +41,7 @@ namespace PageObjects
         {
             get
             {
+                _logger.Debug("Trying to get Addressee");
                 return _driver.FindElement(By.CssSelector("div[data-type='to'] input"));
             }
         }
@@ -48,6 +50,7 @@ namespace PageObjects
         {
             get
             {
+                _logger.Debug("Trying to get Subject");
                 return _driver.FindElement(By.CssSelector("input[name='Subject']"));
             }
         }
@@ -56,6 +59,7 @@ namespace PageObjects
         {
             get
             {
+                _logger.Debug("Trying to get Body");
                 return _driver.FindElement(By.CssSelector("div[role='textbox']"));
             }
         }
@@ -68,64 +72,79 @@ namespace PageObjects
             }
         }
 
-        private IWebElement Buttons
-        {
-            get
-            {
-                return _driver.FindElement(By.CssSelector(".compose-app__buttons"));
-            }
-        }
         private IWebElement SendMail
         {
             get
             {
-                return Buttons.FindElement(By.CssSelector("span[data-title-shortcut='Ctrl+Enter']"));
+                _logger.Debug("Trying to press Sent Email button");
+                return _driver.FindElement(By.CssSelector("span[data-title-shortcut='Ctrl+Enter']"));
             }
         }
 
-        private IWebElement DraftMail
+        private IWebElement MakeDraft
         {
             get
             {
-                return Buttons.FindElement(By.CssSelector("span[data-title-shortcut='Ctrl+S']"));
+                _logger.Debug("Trying to save Draft Email");
+                return _driver.FindElement(By.CssSelector("span[data-title-shortcut='Ctrl+S']"));
             }
         }
 
-        private IWebElement CloseMail
+        private IWebElement CloseForm
         {
             get
             {
+                _logger.Debug("Trying to close an email");
                 return _driver.FindElement(By.CssSelector(".focus-zone button[title='Закрыть']"));
+            }
+        }
+
+        private IWebElement WindowBlock
+        {
+            get
+            {
+                return _driver.FindElement(By.ClassName("layer-window__block"));
             }
         }
 
         public NewEmail Create(Email email)
         {
-            Open();
+            OpenForm();
 
             Addressee.SendKeys(email.Recipient);
             Subject.SendKeys(email.Subject);
             Body.SendKeys(email.Text);
 
+            _logger.Debug("Email was filled");
             return this;
         }
 
         public void SaveDraft()
         {
-            DraftMail.Click();
-            CloseMail.Click();
+            WaitForPageLoad();
+
+            MakeDraft.Click();
+            _logger.Debug("Draft was saved");
+
+            CloseForm.Click();
+            _logger.Debug("Email was closed");
         }
 
         public void Send()
         {
             SendMail.Click();
+            _logger.Debug("Email was sent");
+
+            SkipAfterSentWindow();
         }
 
-        private void Open()
+        private void OpenForm()
         {
             WaitForPageLoad();
 
             NewMail.Click();
+
+            _logger.Debug("New Email window was opened");
 
             WaitForLoad();
         }
@@ -146,6 +165,7 @@ namespace PageObjects
                     return false;
                 }
             });
+            _logger.Debug("New Email is successfully opened");
         }
 
         protected override void WaitForPageLoad()
@@ -156,14 +176,20 @@ namespace PageObjects
             {
                 try
                 {
-                    return NewMail.Displayed;
+                    var loaderStyle = _driver.FindElement(By.Id("app-loader")).GetAttribute("style");
+                    return loaderStyle.Contains("display: none") && loaderStyle.Contains("opacity");
                 }
-
                 catch (NoSuchElementException)
                 {
                     return false;
                 }
             });
+        }
+
+        private void SkipAfterSentWindow()
+        {
+            WaitForPageLoad();
+            WindowBlock.FindElement(By.ClassName("button2__ico")).Click();
         }
     }
 }
