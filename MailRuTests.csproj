@@ -66,11 +66,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Models\Models.csproj">
+    <ProjectReference Include="Models\Models.csproj">
       <Project>{dca67fd2-8a0f-4977-9570-ccde811badf8}</Project>
       <Name>Models</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PageObjects\PageObjects.csproj">
+    <ProjectReference Include="PageObjects\PageObjects.csproj">
       <Project>{d783b3fc-49a6-456f-9a8c-7fe2f551d00a}</Project>
       <Name>PageObjects</Name>
     </ProjectReference>
