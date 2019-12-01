@@ -1,3 +1,6 @@
+#ignore json
+*.json
+
 # User-specific files
 *.suo
 *.user
