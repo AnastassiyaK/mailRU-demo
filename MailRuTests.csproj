@@ -75,11 +75,16 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <None Include="TestData\letters.json" />
     <None Include="TestData\Users.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Core\Core.csproj">
+      <Project>{82EF9004-B646-4242-9E62-EAF2F6507B82}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
     <ProjectReference Include="Models\Models.csproj">
       <Project>{dca67fd2-8a0f-4977-9570-ccde811badf8}</Project>
       <Name>Models</Name>

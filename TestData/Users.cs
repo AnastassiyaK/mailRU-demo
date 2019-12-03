@@ -19,6 +19,7 @@ namespace EmailTests.TestData
         {
             return File.ReadAllText($@"{GetExecutingDirectory()}\TestData\Users.json");
         }
+
         private static string GetExecutingDirectory()
         {
             var location = new Uri(Assembly.GetExecutingAssembly().GetName().CodeBase);

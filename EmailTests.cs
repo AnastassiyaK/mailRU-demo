@@ -1,26 +1,27 @@
-﻿using EmailTests.TestData;
+﻿using Core.Driver;
+using Core.Enums;
+using EmailTests.TestData;
 using Models;
-using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using PageObjects;
 using NLog;
+using NUnit.Framework;
+using PageObjects;
+using System;
 
 namespace EmailTests
 {
     [TestFixture]
     public class EmailTests
     {
-        private IWebDriver _driver;
+        private WebDriver _driver;
 
         private ILogger _logger;
 
         [SetUp]
         public void SetUp()
         {
-            _driver = new ChromeDriver();
-            _driver.Manage().Window.Maximize();
             _logger = LogManager.GetLogger($"{TestContext.CurrentContext.Test.Name}");
+            _driver = new WebDriver(_logger);
+            _driver.InitiateBrowser(BrowserType.Chrome);
         }
 
         [TearDown]
@@ -33,9 +34,13 @@ namespace EmailTests
         public void SendEmail()
         {
             LogIn();
-            //Assert.That(_driver.Url.Contains("/inbox/"));
 
-            var emailForSending = new Email() { Recipient = Users.User.Login, Subject = "for fun", Text = "hey,there!Hru?" };
+            var emailForSending = new Email()
+            {
+                Recipient = Users.User.Login,
+                Subject = "for fun",
+                Text = $"Happy {DateTime.Today.DayOfWeek} {DateTime.Now.ToString()}"
+            };
 
             var email = CreateEmail(emailForSending);
 
@@ -45,9 +50,11 @@ namespace EmailTests
 
             mailPage.SendDraft(emailForSending);
 
-            Assert.That(mailPage.LetterIsInDrafts(emailForSending), Is.False);
+            Assert.That(mailPage.LetterIsInDrafts(emailForSending), Is.False, "Message is still in Drafts Folder");
 
-            Assert.That(mailPage.LetterIsSent(emailForSending), Is.True);
+            Assert.That(mailPage.LetterIsSent(emailForSending), Is.True, "Message is not in Sent Folder");
+
+            mailPage.LogOut();
         }
 
         private void LogIn()
