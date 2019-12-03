@@ -1,11 +1,12 @@
-﻿using NLog;
+﻿using Core.Driver;
+using NLog;
 using OpenQA.Selenium;
 
 namespace PageObjects
 {
     public class Letter : DependentOnElementPageObject
     {
-        public Letter(IWebElement element, IWebDriver driver, ILogger logger)
+        public Letter(IWebElement element, WebDriver driver, ILogger logger)
             : base(element, driver, logger)
         {
         }

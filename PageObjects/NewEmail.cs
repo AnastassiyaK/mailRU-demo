@@ -1,14 +1,13 @@
-﻿using Models;
+﻿using Core.Driver;
+using Models;
 using NLog;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
-using System;
 
 namespace PageObjects
 {
     public class NewEmail : BasePageObject
     {
-        public NewEmail(IWebDriver driver, ILogger logger)
+        public NewEmail(WebDriver driver, ILogger logger)
             : base(driver, logger)
         {
         }
@@ -151,39 +150,14 @@ namespace PageObjects
 
         private void WaitForLoad()
         {
-            var waitor = new WebDriverWait(_driver, TimeSpan.FromSeconds(5));
-
-            waitor.Until(driver =>
-            {
-                try
-                {
-                    return Addressee.Displayed;
-                }
-
-                catch (NoSuchElementException)
-                {
-                    return false;
-                }
-            });
+            _driver.WaitForElementDisplayed(By.CssSelector("div[data-type='to'] input"));
             _logger.Debug("New Email is successfully opened");
         }
 
         protected override void WaitForPageLoad()
         {
-            var waitor = new WebDriverWait(_driver, TimeSpan.FromSeconds(5));
-
-            waitor.Until(driver =>
-            {
-                try
-                {
-                    var loaderStyle = _driver.FindElement(By.Id("app-loader")).GetAttribute("style");
-                    return loaderStyle.Contains("display: none") && loaderStyle.Contains("opacity");
-                }
-                catch (NoSuchElementException)
-                {
-                    return false;
-                }
-            });
+            var element = _driver.FindElement(By.Id("app-loader"));
+            _driver.WaitForStyleProperties(element, "style", new[] { "opacity: 0;", "display: none;" });
         }
 
         private void SkipAfterSentWindow()

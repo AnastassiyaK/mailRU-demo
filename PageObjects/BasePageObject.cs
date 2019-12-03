@@ -1,17 +1,15 @@
-﻿using NLog;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
-using System;
+﻿using Core.Driver;
+using NLog;
 
 namespace PageObjects
 {
     public abstract class BasePageObject
     {
-        protected readonly IWebDriver _driver;
+        protected readonly WebDriver _driver;
 
         protected readonly ILogger _logger;
 
-        public BasePageObject(IWebDriver driver, ILogger logger)
+        public BasePageObject(WebDriver driver, ILogger logger)
         {
             _driver = driver;
             _logger = logger;
@@ -19,10 +17,7 @@ namespace PageObjects
 
         protected virtual void WaitForPageLoad()
         {
-            var waitDOM = new WebDriverWait(_driver, TimeSpan.FromSeconds(5));
-            IJavaScriptExecutor js = _driver as IJavaScriptExecutor;
-
-            waitDOM.Until(driver => (bool)js.ExecuteScript("return document.readyState == 'complete'"));
+            _driver.WaitForReadyDOM();
         }
     }
 }

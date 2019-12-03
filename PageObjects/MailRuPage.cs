@@ -1,6 +1,6 @@
-﻿using Models;
+﻿using Core.Driver;
+using Models;
 using NLog;
-using OpenQA.Selenium;
 
 namespace PageObjects
 {
@@ -8,7 +8,7 @@ namespace PageObjects
     {
         private static readonly string url = "https://mail.ru/";
 
-        public MailRuPage(IWebDriver driver, ILogger logger)
+        public MailRuPage(WebDriver driver, ILogger logger)
             : base(driver, logger)
         {
         }
@@ -28,7 +28,7 @@ namespace PageObjects
 
         public MailRuPage Open()
         {
-            _driver.Navigate().GoToUrl(url);
+            _driver.Navigate(url);
             return this;
         }
     }

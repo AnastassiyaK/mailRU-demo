@@ -56,6 +56,10 @@
     <Compile Include="BasePageObject.cs" />
     <Compile Include="DependentOnElementPageObject.cs" />
     <Compile Include="Draft.cs" />
+    <Compile Include="Exceptions\DraftNotFoundException.cs" />
+    <Compile Include="Exceptions\FolderNotFoundException.cs" />
+    <Compile Include="Folder.cs" />
+    <Compile Include="FoldersNavigator.cs" />
     <Compile Include="Letter.cs" />
     <Compile Include="MailBox.cs" />
     <Compile Include="MailPage.cs" />
@@ -67,6 +71,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{82ef9004-b646-4242-9e62-eaf2f6507b82}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Models\Models.csproj">
       <Project>{dca67fd2-8a0f-4977-9570-ccde811badf8}</Project>
       <Name>Models</Name>
