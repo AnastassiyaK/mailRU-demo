@@ -1,10 +1,12 @@
-﻿namespace Models
+﻿namespace Models.Enums
 {
     public enum FolderType
     {
         Inbox,
         Sent,
-        Draft,
+        Social,
+        Newsletters,
+        Drafts,
         Spam,
         Trash
     }
